@@ -1,0 +1,24 @@
+def plot_matrices(matrices, labels=None):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.set_xlim(-1, 1)
+    ax.set_ylim(-1, 1)
+    ax.set_zlim(-1, 1)
+    ax.set_xlabel("X", fontsize=16)
+    ax.set_ylabel("Y", fontsize=16)
+    ax.set_zlabel("Z", fontsize=16)
+
+    colors = ['red', 'lime', 'blue']
+    for i, m in enumerate(matrices):
+        x, y, z = m[:3, 3]
+        for j in range(3):
+            vector = m[:3, j]
+            ax.quiver(x, y, z, vector[0], vector[1], vector[2], color=colors[j], arrow_length_ratio=0.005)
+
+        label = labels[i] if labels is not None else f"matrix {i + 1}"
+        ax.text(x, y, z, label, color='black', fontsize=10)
+
+    if labels is not None:
+        ax.legend(fontsize=12, loc='best')
+
+    plt.show()
